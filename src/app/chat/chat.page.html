@@ -1,0 +1,80 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            <div class="title-block">
+                <ion-icon name="chatboxes" color="d3blue" class="title-icon"></ion-icon>
+                <ion-text color="d3blue" class="title-text">Chat</ion-text>
+            </div>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding-vertical fullscreen>
+    <div id="chat-parent" class="bg-image" [ngClass]="{ 'bg-image-X': phone_model=='iPhone X'}">
+        <div id="chat-container">
+            <ion-row *ngFor="let conv of conversation; let i = index;" class="full no-padding">
+                <ion-col class="no-padding chat-row" [ngClass]="{ 'reverse': conv.sender}">
+                    <div class="avatar-parent">
+                        <div class="avatar-border"></div>
+                        <img [src]="conv.image" class="avatar">
+                    </div>
+                    <div [ngClass]="{ 'name-row-parent-right': conv.sender,'name-row-parent-left': !conv.sender}">
+                        <div class="no-padding" [ngClass]="{ 'name-row-right': conv.sender,'name-row-left': !conv.sender}">
+                        </div>
+                        <div class="no-padding" *ngIf="!conv.attach" [ngClass]="{ 'message-row-right': conv.sender,'message-row-left': !conv.sender}">
+                            <ion-text no-margin class="text">{{conv.text}}
+                            </ion-text>
+                        </div>
+                        <div class="no-padding" *ngIf="conv.attach" [ngClass]="{ 'message-row-right': conv.sender,'message-row-left-upper': !conv.sender}">
+                            <ion-text no-margin class="text">{{conv.text}}
+                            </ion-text>
+                        </div>
+                        <div *ngIf="conv.attach" [ngClass]="{ 'message-row-right': conv.sender,'message-row-left-add': !conv.sender}">
+                            <div class="message-inner-attach">
+                                    <ion-text  class="text">
+                                        MOTO GP Schedule
+                                    </ion-text>
+                                <div>
+                                    <ion-text  class="text">
+                                        Season 2019
+                                    </ion-text>
+                                </div>
+                                <div class="msg-location-date">
+                                    <ion-text  class="msg-text">
+                                        Circuit of America
+                                    </ion-text>
+                                    <ion-text  class="msg-text">
+                                         Apr.6
+                                    </ion-text>
+                                </div>
+                                <div class="msg-attach-img">
+                                    <img src="./assets/images/motogp.jpg">
+                                </div>  
+                            </div> 
+                        </div>
+                    </div>
+
+                </ion-col>
+            </ion-row>
+        </div>
+    </div>
+</ion-content>
+<ion-footer translucent [ngClass]="{ 'custom-footer': phone_model=='iPhone X'}">
+    <ion-row class="input-position" [ngClass]="{ 'custom-footer-row': phone_model=='iPhone X'}">
+        <ion-col size="1" class="cust-icon">
+            <ion-icon name="keypad"></ion-icon>
+        </ion-col>
+        <ion-col size="8.5">
+            <ion-input class="input restrict" type="text" placeholder="Type a message" [(ngModel)]="input" padding-start></ion-input>
+        </ion-col>
+        <ion-col size="1" class="cust-icon">
+            <ion-icon name="add"></ion-icon>
+        </ion-col>
+        <ion-col size="1" class="cust-icon">
+            <ion-icon name="paper-plane" (click)="send()"></ion-icon>
+        </ion-col>
+    </ion-row>
+</ion-footer>
